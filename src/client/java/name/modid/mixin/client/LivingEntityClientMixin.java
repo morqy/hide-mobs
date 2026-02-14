@@ -8,17 +8,31 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
  * Client-side mixin on LivingEntity to:
  * - Detect death and mark entity hidden — only if player-targeted
  * - Suppress death particles/sounds for hidden entities
+ * - Make hidden entities non-pickable so you can hit/mine through them
  * 
  * "Player-targeted" means the player directly left-clicked the entity.
  * AoE/splash mobs that the player didn't directly attack are never hidden.
  */
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityClientMixin {
+    
+    /**
+     * Make hidden entities non-pickable so the client raycast skips them.
+     * This lets you hit entities behind them and mine blocks through them.
+     */
+    @Inject(method = "isPickable", at = @At("HEAD"), cancellable = true)
+    private void skipPickIfHidden(CallbackInfoReturnable<Boolean> cir) {
+        LivingEntity entity = (LivingEntity) (Object) this;
+        if (entity.level().isClientSide() && EntityHideTracker.isHidden(entity.getId())) {
+            cir.setReturnValue(false);
+        }
+    }
     
     /**
      * When tickDeath runs on client, hide the entity IF the player targeted it.

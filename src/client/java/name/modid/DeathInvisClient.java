@@ -1,6 +1,5 @@
 package name.modid;
 
-import com.mojang.brigadier.arguments.FloatArgumentType;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
@@ -27,8 +26,7 @@ public class DeathInvisClient implements ClientModInitializer {
                 .then(ClientCommandManager.literal("mode")
                     .then(ClientCommandManager.literal("hit")
                         .executes(context -> {
-                            DeathInvisConfig.hideOnHit = true;
-                            context.getSource().sendFeedback(Component.literal("\u00A77[DeathInvis] Mode: \u00A7eON HIT"));
+                            context.getSource().sendFeedback(Component.literal("\u00A7c[DeathInvis] On-hit mode doesn't work."));
                             return 1;
                         })
                     )
@@ -40,27 +38,8 @@ public class DeathInvisClient implements ClientModInitializer {
                         })
                     )
                     .executes(context -> {
-                        DeathInvisConfig.toggle();
                         String mode = DeathInvisConfig.hideOnHit ? "\u00A7eON HIT" : "\u00A7eON DEATH";
-                        context.getSource().sendFeedback(Component.literal("\u00A77[DeathInvis] Mode: " + mode));
-                        return 1;
-                    })
-                )
-                .then(ClientCommandManager.literal("threshold")
-                    .then(ClientCommandManager.argument("amount", FloatArgumentType.floatArg(0))
-                        .executes(context -> {
-                            float threshold = FloatArgumentType.getFloat(context, "amount");
-                            DeathInvisConfig.damageThreshold = threshold;
-                            context.getSource().sendFeedback(Component.literal(
-                                "\u00A77[DeathInvis] Threshold set to: \u00A7e" + formatNumber(threshold)
-                            ));
-                            return 1;
-                        })
-                    )
-                    .executes(context -> {
-                        context.getSource().sendFeedback(Component.literal(
-                            "\u00A77[DeathInvis] Current threshold: \u00A7e" + formatNumber(DeathInvisConfig.damageThreshold)
-                        ));
+                        context.getSource().sendFeedback(Component.literal("\u00A77[DeathInvis] Current mode: " + mode));
                         return 1;
                     })
                 )
@@ -83,15 +62,6 @@ public class DeathInvisClient implements ClientModInitializer {
         source.sendFeedback(Component.literal("\u00A76\u00A7lDeathInvis Commands:"));
         source.sendFeedback(Component.literal("\u00A77/di toggle \u00A7f- Enable/disable mod"));
         source.sendFeedback(Component.literal("\u00A77/di mode \u00A7f- Switch hide mode (on hit / on death)"));
-        source.sendFeedback(Component.literal("\u00A77/di threshold <amount> \u00A7f- Set damage threshold"));
-        source.sendFeedback(Component.literal("\u00A77/di threshold \u00A7f- Show current threshold"));
         source.sendFeedback(Component.literal("\u00A77\u00A7m                    "));
-    }
-    
-    private static String formatNumber(float num) {
-        if (num == 0) return "0 (ALL HITS)";
-        if (num >= 1000000) return (num / 1000000) + "M";
-        if (num >= 1000) return (num / 1000) + "K";
-        return String.valueOf((int) num);
     }
 }
