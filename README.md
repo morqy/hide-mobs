@@ -34,8 +34,13 @@ All commands are client-side and start with `/di`:
 | `/di toggle` | Enable or disable the mod |
 | `/di mode` | Show current hide mode |
 | `/di mode death` | Set mode to hide on death (default) |
+| `/di mode hit` | On-hit mode (currently not working) |
 
 Commands support tab-completion and appear in chat history.
+
+## Known Issues
+
+- **On-hit mode does not work.** The `death` mode (hide on kill) is the only functional mode. On-hit mode is present in the code but disabled until a proper implementation is ready.
 
 ## Disclaimer
 
