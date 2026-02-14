@@ -3,7 +3,11 @@
 	"package": "name.modid.mixin.client",
 	"compatibilityLevel": "JAVA_21",
 	"client": [
-		"ExampleClientMixin"
+		"ExampleClientMixin",
+		"ChatScreenMixin",
+		"LivingEntityRendererMixin",
+		"LivingEntityClientMixin",
+		"AttackTrackingMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

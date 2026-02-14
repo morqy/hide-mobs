@@ -2,10 +2,7 @@
 	"required": true,
 	"package": "name.modid.mixin",
 	"compatibilityLevel": "JAVA_21",
-	"mixins": [
-		"NoDeathAnimMixin",
-		"ChatScreenMixin"
-	],
+	"mixins": [],
 	"injectors": {
 		"defaultRequire": 1
 	},
