@@ -1,0 +1,36 @@
+{
+	"schemaVersion": 1,
+	"id": "deathinvis",
+	"version": "${version}",
+	"name": "DeathInvis",
+	"description": "Disable death animation of mobs",
+	"authors": [
+		"Morqy"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+
+	"license": "CC0-1.0",
+	"icon": "assets/deathinvis/icon.png",
+	"environment": "client",
+	"entrypoints": {
+		"client": [
+			"name.modid.DeathInvisClient"
+		]
+	},
+	"mixins": [
+		"deathinvis.mixins.json",
+		{
+			"config": "deathinvis.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.18.4",
+		"minecraft": "~1.21.11",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}
