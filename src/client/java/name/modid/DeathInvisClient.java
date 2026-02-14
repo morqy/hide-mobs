@@ -26,7 +26,8 @@ public class DeathInvisClient implements ClientModInitializer {
                 .then(ClientCommandManager.literal("mode")
                     .then(ClientCommandManager.literal("hit")
                         .executes(context -> {
-                            context.getSource().sendFeedback(Component.literal("\u00A7c[DeathInvis] On-hit mode doesn't work."));
+                            DeathInvisConfig.hideOnHit = true;
+                            context.getSource().sendFeedback(Component.literal("\u00A77[DeathInvis] Mode: \u00A7eON HIT"));
                             return 1;
                         })
                     )

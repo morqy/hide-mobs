@@ -34,13 +34,13 @@ All commands are client-side and start with `/di`:
 | `/di toggle` | Enable or disable the mod |
 | `/di mode` | Show current hide mode |
 | `/di mode death` | Set mode to hide on death (default) |
-| `/di mode hit` | On-hit mode (currently not working) |
+| `/di mode hit` | On-hit mode — instantly removes mob on attack (risky, see below) |
 
 Commands support tab-completion and appear in chat history.
 
 ## Known Issues
 
-- **On-hit mode does not work.** The `death` mode (hide on kill) is the only functional mode. On-hit mode is present in the code but disabled until a proper implementation is ready.
+- **On-hit mode is risky.** It instantly removes the mob from your client the moment you attack it. This can look suspicious to anti-cheat systems since the entity vanishes before the server confirms the kill. Use `death` mode (default) for a safer experience.
 
 ## Disclaimer
 

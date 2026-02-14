@@ -26,9 +26,10 @@ public class AttackTrackingMixin {
         if (target instanceof LivingEntity && !(target instanceof Player)) {
             EntityHideTracker.markPlayerTargeted(target.getId());
             
-            // Hit mode: immediately hide the mob on attack
+            // Hit mode: immediately discard the mob on attack
             if (DeathInvisConfig.hideOnHit) {
                 EntityHideTracker.markHidden(target.getId());
+                target.discard(); // Fully remove from client world
             }
         }
     }
